@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar nuevo empleado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+        .cancel-btn {
+            background-color: #dc3545;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<form action="/guardarEmpleado" method="post">
+    <h1>Nuevo empleado</h1>
+
+    <label for="nombre">Nombre</label>
+    <input type="text" name="first_name" id="nombre">
+
+    <label for="apellido">Apellido</label>
+    <input type="text" name="last_name" id="apellido">
+
+    <label for="email">Correo Electrónico</label>
+    <input type="text" name="email" id="email">
+
+    <label for="phone_number">Número de teléfono</label>
+    <input type="number" name="phone_number" id="phone_number">
+
+    <label for="password">Contraseña</label>
+    <input type="text" name="password" id="password">
+
+    <label for="job">Puesto</label>
+    <select id="job" name="job_id">
+        <option value="" disabled selected>Selecciona un puesto</option>
+        <option th:each="job : ${jobList}" th:value="${job.getJob_id()}" th:text="${job.getJob_title()}"></option>
+    </select>
+
+    <label for="salary">Sueldo</label>
+    <input type="text" name="salary" id="salary">
+
+    <label for="manager">Jefe</label>
+    <select id="manager" name="manager_id">
+        <option value="" disabled selected>Selecciona un jefe</option>
+        <option th:each="manager : ${employeesList}" th:value="${manager.getEmployee_id()}" th:text="${manager.getFirst_name()} + ' ' + ${manager.getLast_name()}"></option>
+    </select>
+    <label for="department">Departamento</label>
+    <select id="department" name="department_id">
+        <option value="" disabled selected>Selecciona un departamento</option>
+        <option th:each="department : ${departmentList}" th:value="${department.getDepartment_id()}" th:text="${department.getDepartment_name()}"></option>
+    </select>
+    <button type="submit">Agregar empleado</button>
+    <button type="button" class="cancel-btn" onclick="window.location.href='/employee/list'">Cancelar</button>
+</form>
+</body>
+</html>
